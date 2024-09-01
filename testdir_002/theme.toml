@@ -1,0 +1,11 @@
+name = "Hugo Bootstrap Gallery"
+license = "MIT"
+# licenselink = "https://github.com/captainflasmr/hugo-bootstrap-gallery/LICENSE.md"
+description = "A hugo theme using bootstrap 4, focussed on a gallery look"
+# homepage = "https://github.com/captainflasmr/hugo-bootstrap-gallery"
+tags = ["blog", "technical", "personal"]
+features = ["blog", "technical", "personal"]
+
+[author]
+    name = "James Dyer"
+    homepage = "http://emacs.dyerdwelling.family"

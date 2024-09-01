@@ -1,0 +1,11 @@
+{{ define "main" }}
+<div id="main-content" class="container post-container">
+  <header>
+    <h1 class="title">{{ .Title }}</h1>
+    <p>{{ .Content }}</p>
+  </header>
+  <ul class="container content">
+    {{ partial "tags" . }}
+  </ul>
+</div>
+{{ end }}

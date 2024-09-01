@@ -1,0 +1,13 @@
+{{ $col_sm := .Get 0 }}
+{{ $col_md := .Get 1 }}
+{{ $col_lg := .Get 2 }}
+{{ $col_xl := .Get 3 }}
+{{ $col_pb := .Get 4 }}
+
+<div class="row">
+  {{- range split .Inner "---||---" }}
+  <div class="col-sm-{{ $col_sm }} col-md-{{ $col_md }} col-lg-{{ $col_lg }} col-xl-{{ $col_xl }} pb-{{ $col_pb }}">
+    {{ . | $.Page.RenderString -}}
+  </div>
+  {{- end }}
+</div>

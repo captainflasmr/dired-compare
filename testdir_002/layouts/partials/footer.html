@@ -1,0 +1,20 @@
+<footer class="footer">
+  {{ partial "search" . }}
+  <div class="container">
+    <div class="row">
+      <div class="offset-lg-1 col-lg-10 col-xs-12">
+        <p class="text-center mb-0 pa-0">
+          {{ with .Site.Params.Copyright }}{{ . | markdownify}}{{ end }}
+          {{ with .OutputFormats.Get "rss" -}}
+          {{ printf `<a href="%s" />` .Permalink | safeHTML }}
+          <img src="/images/banner/icon-rss.png" alt="">
+          </a>
+          {{ end -}}
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+{{ partial "scripts" . }}
+</body>
+</html>

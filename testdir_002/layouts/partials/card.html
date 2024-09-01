@@ -1,0 +1,40 @@
+<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-3">
+  <div class="card">
+    {{ if and (isset .Params "thumbnail") (not (eq .Params.thumbnail "")) }}
+    <a href="{{ .Permalink }}" itemprop="url">
+      {{if or (in (substr .Params.thumbnail 0 7) "http://") (in (substr .Params.thumbnail 0 8) "https://")}}
+      <img src="{{ .Params.thumbnail }}" class="card-img-top">
+      {{ else if  (in (substr .Params.thumbnail 0 1) "/" ) }}
+      <img src="{{ .Params.thumbnail | relURL }}" class="card-img-top">
+      {{ else }}
+      <img src="{{ .Params.thumbnail | relURL }}" class="card-img-top">
+      {{end}}
+    </a>
+    {{ end }}
+
+    <div class="card-body">
+      <p class="card-title">
+        <a href="{{ .Permalink }}">
+          {{ replaceRE
+          "^[[:digit:]]+.|__.*$|[z]*_s|Finished|_" "" .Title
+          }}
+        </a>
+      </p>
+      <p class="card-text">
+        {{ if .IsPage }}
+        {{ if .Description }}
+        {{ .Description | markdownify | truncate 120 }}
+        {{ else }}
+        {{ .Summary | truncate 120}}
+        {{ end }}
+        {{ end }}
+      </p>
+    </div>
+
+    <div class="card-footer">
+      <small>
+        {{ partial "metas.html" . }}
+      </small>
+    </div>
+  </div>
+</div>

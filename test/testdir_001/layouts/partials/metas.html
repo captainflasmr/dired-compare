@@ -1,0 +1,34 @@
+<div class="meta">
+  {{ .Params.author }}
+  :
+  <!-- published date -->
+  {{ if not .Date.IsZero }}
+  {{ .Date.Format (.Site.Params.dateformat | default "Jan 02, 2006") }}
+  {{ end }}
+  :
+  {{ .WordCount }} words
+  <br/>
+  <!-- categories -->
+  {{ with .Params.categories }}
+  {{ $total := len . }}
+  {{ if gt $total 0 }}
+  {{ $total := sub $total 1 }}
+  {{ range $i, $cat := sort . }}
+  <a class="badge badge-secondary" href="{{ "/categories/" | relURL }}{{ $cat | urlize }}">{{ $cat | lower }}</a>
+  {{ if lt $i $total }}{{ end }}
+  {{ end }}
+  {{ end }}
+  {{ end }}
+  <!-- tags -->
+  {{ with .Params.tags }}
+  {{ $total := len . }}
+  {{ if gt $total 0 }}
+  {{ $subtotal := sub $total 1 }}
+  {{ range $i, $tag := . }}
+  <a class="badge badge-secondary" href="{{ "/tags/" | relURL }}{{ $tag | urlize }}">{{ $tag | lower }}</a>
+  {{ if lt $i $subtotal }}{{ end }}
+  {{ end }}
+  {{ end }}
+  {{ end }}
+  <!-- {{ .ReadingTime }} min read -->
+</div>

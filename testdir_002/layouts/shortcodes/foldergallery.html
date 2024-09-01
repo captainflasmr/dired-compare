@@ -1,0 +1,40 @@
+<style>
+  div.gallery {
+      display: flex;
+      flex-wrap: wrap;
+      border: 0px;
+  }
+  div.gallery a {
+      flex-grow: 0;
+      object-fit: cover;
+      margin: 1px;
+      display: flex;
+  }
+
+  div.gallery a img {
+      margin: 0;
+      padding: 0;
+      height: 160px;
+      object-fit: cover;
+      flex-grow: 0;
+      /* max-width: 100%; */
+  }
+</style>
+
+<div class="gallery">
+  {{ $base := .Get "src" }}
+  {{ $path := print "static/" (.Get "src") }}
+
+  {{ $files := readDir $path }}
+  {{ range sort $files "Name" "desc" }}
+  {{- $thumbext := "-thumb" }}
+  {{- $isthumb := .Name | findRE ($thumbext | printf "%s\\.") }}<!-- is the current file a thumbnail image? -->
+  {{- $isimg := lower .Name | findRE "\\.(gif|webp|jpg|jpeg|tiff|png|bmp)" }}<!-- is the current file an image? -->
+  {{- if and $isimg (not $isthumb) }}
+  {{- $thumb := .Name | replaceRE "(\\.)" ($thumbext | printf "%s.") }}
+  <a href="/{{ $base }}/{{ .Name }}">
+    <img src="/{{ $base  }}/{{ .Name }}">  <br/>
+  </a>
+  {{- end }}
+  {{ end }}
+</div>

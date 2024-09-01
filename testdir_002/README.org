@@ -1,0 +1,101 @@
+#+title: hugo-bootstrap-gallery
+#+options: toc:t author:t title:t
+#+startup: showall
+#+author: James Dyer
+
+* hugo-bootstrap-gallery
+
+A hugo theme using bootstrap 4, focussed on a gallery look
+
+*NOTE: This theme is copied inspired https://github.com/hugo-bootstrap/hugo-bootstrap
+
+You can find a live site using this theme [here](http://emacs.dyerdwelling.family/).
+
+** a new heading
+
+this heading contains some new text that can be picked up on a dired-compare
+
+** file structure
+
+hugo-bootstrap-gallery/
+
+#+begin_src
+├── archetypes
+│   ├── default.md
+│   └── page.md
+├── layouts
+│   ├── 404.html
+│   ├── _default
+│   │   ├── index.json
+│   │   ├── index.json.json
+│   │   ├── list.html
+│   │   ├── rss.xml
+│   │   ├── section.html
+│   │   ├── single.html
+│   │   └── terms.html
+│   ├── index.html
+│   └── partials
+│       ├── card.html
+│       ├── card-metas.html
+│       ├── disqus.html
+│       ├── error-404.html
+│       ├── footer.html
+│       ├── header.html
+│       ├── metas.html
+│       ├── scripts.html
+│       ├── search.html
+│       ├── share.html
+│       ├── single-metas.html
+│       └── tags.html
+├── LICENSE.md
+├── static
+│   ├── assets
+│   │   └── css
+│   │       └── bootstrap.css
+│   └── scripts
+│       └── fixedsearch
+│           ├── fixedsearch.js
+│           └── fuse.js
+└── theme.toml
+#+end_src
+
+**  Installation
+
+#+begin_src bash
+$ cd your_site_repo/
+$ mkdir themes
+$ cd themes
+$ git clone https://github.com/captainflasmr/hugo-bootstrap-gallery
+#+end_src
+
+See the [official Hugo themes documentation](http://gohugo.io/themes/installing) for more info.
+
+** Usage
+
+This theme expects a relatively standard Hugo blog/personal site layout:
+#+begin_src
+.
+└── content
+    ├── post
+    |   ├── post1.md
+    |   └── post2.md
+    ├── page
+    |   ├── about-me.md
+    |   ├── license.md
+    └── other_page.md
+#+end_src
+
+Just run `hugo --theme=hugo-bootstrap-gallery` to generate your site!
+
+** Configuration
+
+Please see the config file of the example site in this repo for details of confguration.
+
+*** Hugo
+
+An example of what your site's `config.toml` could look like. All theme-specific parameters are under `[params]` and standard Hugo parameters are used where possible.
+
+
+** Questions, ideas, bugs, pull requests?
+
+All feedback is welcome! Head over to the [issue tracker](https://github.com/captainflasmr/hugo-bootstrap-gallery/issues).

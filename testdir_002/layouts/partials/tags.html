@@ -1,0 +1,24 @@
+{{ define "main" }}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 pb-12">
+      <div class="article-body">
+        {{ range $taxonomyname, $taxonomy := .Site.Taxonomies }}
+        {{ if eq $taxonomyname "tags" }}
+        <ul>
+          {{ range $key, $value := $taxonomy }}
+          <li> {{ $key }} </li>
+          <ul>
+            {{ range $value.Pages }}
+            <li hugo-nav="{{ .RelPermalink}}"><a href="{{ .Permalink}}"> {{ .LinkTitle }} </a> </li>
+            {{ end }}
+          </ul>
+          {{ end }}
+        </ul>
+        {{ end }}
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}

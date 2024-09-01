@@ -1,0 +1,82 @@
+canonifyurls = false
+relativeURL = true
+paginate = 24
+theme = "hugo-bootstrap-gallery"
+DefaultContentLanguage = "en"
+
+disqusShortname = ""
+DisqusShortname = ""
+
+[languages]
+  [languages.en]
+    mainSections = ["art--gallery", "emacs", "posts"]
+    title = "the DyerDwelling / emacs"
+    copyright = "© 2023 James Dyer all rights reserved"
+    custom_css = ["assets/css/bootstrap.css", "assets/css/style.css"]
+    favicon = "/images/banner/favicon-james.png"
+    site_logo = "/images/banner/made-with-emacs.jpg"
+    navbar_background = "/images/banner/navbar-art.jpg"
+
+[Author]
+    name = "John Doe"
+    email = "johndoe@example.com"
+
+[[menu.main]]
+  # parent = "Art"
+  name = "gallery"
+  url = "/art--gallery/"
+  weight = 20
+
+[[menu.main]]
+  name = "emacs"
+  url = "/emacs/"
+  weight = 50
+
+[[menu.main]]
+  name = "linux"
+  url = "/tags/linux//"
+  weight = 50
+
+[[menu.main]]
+  name = "about"
+  url = "/about-me/"
+  identifier = "About"
+  weight = 110
+
+[[menu.main]]
+  name = "index"
+  url = "/tags/"
+  weight = 120
+
+[taxonomies]
+tag = "tags"
+category = "categories"
+
+[thumbnail]
+  visibility = false
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      hardWraps = false
+      unsafe = true
+      xhtml = false
+
+# note these are required to get the menu direct page links to work
+[permalinks]
+  page = "/:slug/"
+  posts = "/:slug/"
+  notes = "/:slug/"
+
+[outputs]
+  home = ["HTML", "RSS", "htaccess", "JSON"]
+
+[outputFormats]
+[outputFormats.htaccess]
+    baseName = ""
+    isPlainText = true
+    mediaType = "text/htaccess"
+
+[mediaTypes]
+  [mediaTypes."text/htaccess"]
+    suffixes = ["htaccess"]

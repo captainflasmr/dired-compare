@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    {{ with .OutputFormats.Get "rss" -}}
+    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+    {{ end -}}
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>{{ .Title }}</title>
+    {{ partial "metas-head" . }}
+    {{ range .Site.Params.custom_css -}}
+    <link rel="stylesheet" href="{{ . | relURL }}">
+    {{- end}}
+    <style>
+      .footer, .site-navbar {
+          background-image: url("{{- .Site.Params.navbar_background -}}");
+      }
+    </style>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md site-navbar">
+      <a class="navbar-brand" href="{{ .Site.BaseURL }}">
+        <!-- <div class="navbar-title"> -->
+          {{ if .Site.Params.favicon }}
+          <img src="{{ .Site.Params.favicon }}" class="top-img">
+          {{ end }}
+          {{ if .Site.Params.site_logo }}
+          <img src="{{ .Site.Params.site_logo }}" class="top-img">
+          {{ end }}
+          <!-- {{ .Site.Title }} -->
+          <!-- </div> -->
+        <!-- <div class="subtitle">{{ .Site.Author.name }}</div> -->
+      </a>
+      <div class="">
+        <button class="navbar-toggler"
+                type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-controls="exCollapsingNavbar2"
+                aria-expanded="false" aria-label="Toggle navigation">
+          &#9776;
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse" id="exCollapsingNavbar2">
+        <ul class="nav navbar-nav ml-auto">
+          {{ range .Site.Menus.main }}
+          {{ if .HasChildren }}
+          <div class="dropdown">
+            <a class="btn dropdown-toggle" data-toggle="dropdown">
+              <span>{{ .Name }}</span>
+            </a>
+            <div class="dropdown-menu">
+              {{ range .Children }}
+              <a class="dropdown-item" href="{{ .URL }}">
+                {{ .Name }}
+              </a>
+              {{ end }}
+            </div>
+          </div>
+          {{ else }}
+          <li class="nav-item">
+            <a class="nav-link menu-item no-decoration" href="{{.URL}}">
+              {{ .Pre }}
+              <span>{{ .Name }}</span>
+            </a>
+          </li>
+          {{ end }}
+          {{ end }}
+        </ul>
+      </div>
+    </nav>
+    <!-- {{ partial "search" . }} -->

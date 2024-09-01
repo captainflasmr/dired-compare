@@ -14,31 +14,33 @@ dired-compare is designed to provide a convenient interface for comparing direct
 #+attr_html: :width 100%
 [[file:img/dired-compare-00.jpg]]
 
+* Directory comparsion tools supported
+
+** emacs built-in
+
+- ediff-directories
+- dired-diff
+- dired-compare-directories
+
+** emacs packages
+
+- ztree-diff
+
+** linux external
+
+- Meld
+- diff
+- rsync
+- kompare
+- fdupes
+
 * Whats New
 
 ** v0.0.1
 
 Initial Version
 
-* Quick Start
-
-To quickly set up dired-compare, add the following to your Emacs configuration:
-
-#+begin_src elisp
-(use-package dired-compare
-  :bind (:map dired-mode-map
-              ("C-c m" . my/dired-diff-all-dwim)))
-#+end_src
-
 * Installation
-
-** use-package (MELPA)
-
-#+begin_src elisp
-(use-package dired-compare
-  :bind (:map dired-mode-map
-              ("C-c m" . my/dired-diff-all-dwim)))
-#+end_src
 
 ** use-package (emacs 30+)
 
@@ -46,10 +48,11 @@ Put the following into your Emacs init file:
 
 #+begin_src elisp
 (use-package dired-compare
-  :vc (:fetcher github :repo "your-repo/dired-compare")
-  :bind (:map dired-mode-map
-              ("C-c m" . my/dired-diff-all-dwim)))
-#+end_src
+  :vc (:fetcher github :repo "captainflasmr/dired-compare")
+  :bind
+  (:map dired-mode-map
+          (("C-c m" . dired-compare))))
+  #+end_src
 
 ** From source
 
@@ -58,33 +61,33 @@ Download the `.el` file and place it in your Emacs `load-path`.
 Then either manually load it or add it to your configuration to be loaded at startup:
 
 #+begin_src elisp
-(require 'dired-compare)
-(bind-key* (kbd "C-c m") #'my/dired-diff-all-dwim dired-mode-map)
+(when (file-exists-p "~/source/repos/dired-compare")
+  (use-package dired-compare
+    :load-path "~/source/repos/dired-compare"
+    :bind
+    (:map dired-mode-map
+          (("C-c m" . dired-compare)))))
 #+end_src
 
-* Usage
+* Quickish Start / Usage
 
-Interactively compare directories by marking them in Dired mode and invoking the comparison command:
+So how does this work?, well now I can split windows, bring up some dired buffers, mark directories to compare, and then make sure I am in the dired buffer that is to appear on the LHS of the Meld comparison before I then run the command.  The destination directory would then be defined according to =dired-dwim-target= which I have set to =t= which is the next dired visible buffer in a clockwise direction, but can be adjusted as desired.
 
-=M-x my/dired-diff-all-dwim=
+With a little experimentation I found out that =(dired-get-marked-files)= retrieves the dired item that the cursor is over, therefore each directory doesn't necessary even need to be explicitly marked!, so you could just split with two dired buffers, leave the cursor over the destination directory, switch to the source dired buffer and leave the cursor over the source directory before running the command above.
+
+Given the bindings set up in the /Installation/ just run =C-c m= and choose the comparison tool, which include internal emacs functions, emacs packages and external tools.
 
 * Examples
 
 ** Example 1 - Using Meld
 
-Mark two directories in Dired, then:
+Mark two directories in Dired, then choose meld:
 
-#+begin_src elisp
-(my/dired-diff-all-dwim "Meld")
-#+end_src
+** Example 2 - ztree-diff
 
-** Example 2 - Using ztree-diff
+Make sure the emacs package ztree-diff is installed.
 
-Mark two directories in Dired, then:
-
-#+begin_src elisp
-(my/dired-diff-all-dwim "ztree-diff")
-#+end_src
+Mark two directories in Dired, then choose ztree-diff
 
 * Customization
 
@@ -92,7 +95,7 @@ Mark two directories in Dired, then:
   (let ((rows))
     (mapatoms
      (lambda (symbol)
-       (when (and (string-match "^my/dired-diff-"
+       (when (and (string-match "^dired-compare-"
                                 (symbol-name symbol))
                   (not (string-match "--" (symbol-name symbol)))
                   (or (custom-variable-p symbol)
@@ -110,6 +113,9 @@ Mark two directories in Dired, then:
 #+end_src
 
 #+RESULTS:
+| Custom variable          | Description                                                                                        |
+|--------------------------+----------------------------------------------------------------------------------------------------|
+| dired-compare-diff-tools | An alist of available directory comparison tools and their shell commands with optional arguments. |
 
 * Commands
 
@@ -117,7 +123,7 @@ Mark two directories in Dired, then:
     (let ((rows))
       (mapatoms
        (lambda (symbol)
-         (when (and (string-match "^my/dired-diff-"
+         (when (and (string-match "^dired-compare-"
                                   (symbol-name symbol))
                     (commandp symbol))
            (push `(,(car (split-string (symbol-name symbol)))
@@ -127,33 +133,42 @@ Mark two directories in Dired, then:
 #+END_SRC
 
 #+RESULTS:
+| Command                   | Description                                                     |
+|---------------------------+-----------------------------------------------------------------|
+| dired-compare-directories | Mark files with different file attributes in two Dired buffers. |
 
 * Design / Algorithm / Limitations
 
 dired-compare provides a user-friendly interface for using multiple directory comparison tools within Emacs Dired mode. It allows you to extend and customize the list of available tools easily.
 
-** Pseudo-code
-
-#+begin_src
-#+end_src
-
 * ISSUES
 
 #+begin: kanban :layout ("..." . 50) :scope nil :range ("TODO" . "DONE") :sort "O" :depth 3 :match "issues" :compressed t
+| TODO                                               | DOING | DONE |
+|----------------------------------------------------+-------+------|
+| [[file:README.org::*ISSUE #1][ISSUE #1]]                                           |       |      |
+| [[file:README.org::*directories can't be compared when in the same top level][directories can't be compared when in the same ...]] |       |      |
+#+end:
 
 * ROADMAP
 
 #+begin: kanban :layout ("..." . 100) :scope nil :range ("TODO" . "DOING") :sort "O" :depth 3 :match "roadmap" :compressed t
+| TODO | DOING                                  |
+|------+----------------------------------------|
+|      | [[file:README.org::*Add in more directory comparison tools][Add in more directory comparison tools]] |
+#+end:
 
 * ISSUES (github)                                                    :issues:
 
-** TODO ISSUE #1 - text directly from ISSUE#1 on github
-** TODO ISSUE #2 - text directly from ISSUE#2 on github
+** TODO ISSUE #1
+
+* ISSUES (other)                                                     :issues:
+
+** TODO directories can't be compared when in the same top level
 
 * ROADMAP                                                           :roadmap:
 
-** DOING dired-compare first idea for significant functionality
-** DOING dired-compare second idea for significant functionality
+** DOING Add in more directory comparison tools
 
 * Testing
 

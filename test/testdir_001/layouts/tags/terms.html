@@ -1,0 +1,43 @@
+{{ define "main" }}
+<main>
+  <article>
+    {{ range $taxonomyname, $taxonomy := .Site.Taxonomies }}
+    {{ if eq $taxonomyname "tags" }}
+    <ul>
+      {{ range $key, $value := $taxonomy }}
+      <li> {{ $key }} </li>
+      <ul>
+        {{ range $value.Pages }}
+        <li hugo-nav="{{ .RelPermalink}}"><a href="{{ .Permalink}}"> {{ .LinkTitle }} </a> </li>
+        {{ end }}
+      </ul>
+      {{ end }}
+    </ul>
+    {{end}}
+    {{ end }}
+</ul>
+</main>
+</article>
+{{ end }}
+
+{{ define "content" }}
+<main>
+  <article>
+    {{ range $taxonomyname, $taxonomy := .Site.Taxonomies }}
+    {{ if eq $taxonomyname "tags" }}
+    <ul>
+      {{ range $key, $value := $taxonomy }}
+      <li> {{ $key }} </li>
+      <ul>
+        {{ range $value.Pages }}
+        <li hugo-nav="{{ .RelPermalink}}"><a href="{{ .Permalink}}"> {{ .LinkTitle }} </a> </li>
+        {{ end }}
+      </ul>
+      {{ end }}
+</li>
+{{end}}
+{{ end }}
+</ul>
+</main>
+</article>
+{{ end }}

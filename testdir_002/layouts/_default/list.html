@@ -1,0 +1,14 @@
+{{ define "main" }}
+<div id="main-content" class="container" class="grid-inverse wrap content">
+  <header>
+    <h1 class="title">{{ .Title }}</h1>
+    <p>{{ .Content }}</p>
+  </header>
+  <div class="row">
+    {{ range .Paginator.Pages }}
+    {{ partial "card" . }}
+    {{ end }}
+    {{ template "_internal/pagination.html" . }}
+  </div>
+</div>
+{{ end }}
