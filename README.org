@@ -1,0 +1,164 @@
+#+title: dired-compare
+#+author: Your Name
+#+email: you@example.com
+#+language: en
+#+options: ':t toc:nil author:nil email:nil num:nil title:nil
+#+todo: TODO DOING | DONE
+#+startup: showall
+
+* Summary
+
+dired-compare is designed to provide a convenient interface for comparing directories in Dired mode using multiple external and Emacs-based tools. It supports tools like Meld, ztree-diff, ediff-directories, and more.
+
+#+attr_org: :width 300px
+#+attr_html: :width 100%
+[[file:img/dired-compare-00.jpg]]
+
+* Whats New
+
+** v0.0.1
+
+Initial Version
+
+* Quick Start
+
+To quickly set up dired-compare, add the following to your Emacs configuration:
+
+#+begin_src elisp
+(use-package dired-compare
+  :bind (:map dired-mode-map
+              ("C-c m" . my/dired-diff-all-dwim)))
+#+end_src
+
+* Installation
+
+** use-package (MELPA)
+
+#+begin_src elisp
+(use-package dired-compare
+  :bind (:map dired-mode-map
+              ("C-c m" . my/dired-diff-all-dwim)))
+#+end_src
+
+** use-package (emacs 30+)
+
+Put the following into your Emacs init file:
+
+#+begin_src elisp
+(use-package dired-compare
+  :vc (:fetcher github :repo "your-repo/dired-compare")
+  :bind (:map dired-mode-map
+              ("C-c m" . my/dired-diff-all-dwim)))
+#+end_src
+
+** From source
+
+Download the `.el` file and place it in your Emacs `load-path`.
+
+Then either manually load it or add it to your configuration to be loaded at startup:
+
+#+begin_src elisp
+(require 'dired-compare)
+(bind-key* (kbd "C-c m") #'my/dired-diff-all-dwim dired-mode-map)
+#+end_src
+
+* Usage
+
+Interactively compare directories by marking them in Dired mode and invoking the comparison command:
+
+=M-x my/dired-diff-all-dwim=
+
+* Examples
+
+** Example 1 - Using Meld
+
+Mark two directories in Dired, then:
+
+#+begin_src elisp
+(my/dired-diff-all-dwim "Meld")
+#+end_src
+
+** Example 2 - Using ztree-diff
+
+Mark two directories in Dired, then:
+
+#+begin_src elisp
+(my/dired-diff-all-dwim "ztree-diff")
+#+end_src
+
+* Customization
+
+#+begin_src emacs-lisp :results table :colnames '("Custom variable" "Description") :exports results
+  (let ((rows))
+    (mapatoms
+     (lambda (symbol)
+       (when (and (string-match "^my/dired-diff-"
+                                (symbol-name symbol))
+                  (not (string-match "--" (symbol-name symbol)))
+                  (or (custom-variable-p symbol)
+                      (boundp symbol)))
+         (push `(,symbol
+                 ,(car
+                   (split-string
+                    (or (get (indirect-variable symbol)
+                             'variable-documentation)
+                        (get symbol 'variable-documentation)
+                        "")
+                    "\n")))
+               rows))))
+    rows)
+#+end_src
+
+#+RESULTS:
+
+* Commands
+
+#+BEGIN_SRC emacs-lisp :results table :colnames '("Command" "Description") :exports results
+    (let ((rows))
+      (mapatoms
+       (lambda (symbol)
+         (when (and (string-match "^my/dired-diff-"
+                                  (symbol-name symbol))
+                    (commandp symbol))
+           (push `(,(car (split-string (symbol-name symbol)))
+                  ,(or (documentation symbol t) ""))
+                 rows))))
+      rows)
+#+END_SRC
+
+#+RESULTS:
+
+* Design / Algorithm / Limitations
+
+dired-compare provides a user-friendly interface for using multiple directory comparison tools within Emacs Dired mode. It allows you to extend and customize the list of available tools easily.
+
+** Pseudo-code
+
+#+begin_src
+#+end_src
+
+* ISSUES
+
+#+begin: kanban :layout ("..." . 50) :scope nil :range ("TODO" . "DONE") :sort "O" :depth 3 :match "issues" :compressed t
+
+* ROADMAP
+
+#+begin: kanban :layout ("..." . 100) :scope nil :range ("TODO" . "DOING") :sort "O" :depth 3 :match "roadmap" :compressed t
+
+* ISSUES (github)                                                    :issues:
+
+** TODO ISSUE #1 - text directly from ISSUE#1 on github
+** TODO ISSUE #2 - text directly from ISSUE#2 on github
+
+* ROADMAP                                                           :roadmap:
+
+** DOING dired-compare first idea for significant functionality
+** DOING dired-compare second idea for significant functionality
+
+* Testing
+
+See CHANGELOG.org
+
+* Alternative dired-compare packages
+
+There exist a few Emacs packages that perform the functionality that dired-compare does but that don't quite provide the feature set of dired-compare.

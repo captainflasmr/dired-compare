@@ -1,0 +1,87 @@
+#+title: Change log of dired-compare
+#+author: James Dyer
+#+email: captainflasmr@gmail.com
+#+language: en
+#+options: ':t toc:nil author:nil email:nil num:nil title:nil
+#+todo: TODO DOING | DONE
+#+startup: showall
+
+This document contains the release notes for each tagged commit on the
+project's main git repository: [[https://github.com/captainflasmr/dired-compare]]
+
+* Versions
+
+** v0.0.1
+
+Initial Version
+
+* Testing
+
+developing locally using:
+
+#+begin_src elisp
+(use-package dired-compare
+   :load-path "~/repos/dired-compare"
+#+end_src
+
+* Validation
+
+** eval-buffer
+
+** flycheck
+
+** checkdoc
+
+Use =checkdoc= to make sure that your package follows the conventions for documentation strings, within reason.
+
+Buffer comments and tags:  Ok
+Documentation style:       Ok
+Message/Query text style:  Ok
+Unwanted Spaces:           Ok
+
+** package-lint-current-buffer
+
+=package-lint= to help identify common errors in package metadata.
+
+** check in basic vanilla emacs
+
+Just in case I am using some dependencies without realising it!
+
+emacs -q -l ~/source/repos/dired-compare/selected-window-accent-init-file.el
+
+In this case init-file.el can be:
+
+#+begin_src elisp
+;;
+;; -> package-archives
+;;
+
+(require 'package)
+
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                          ("elpa" . "https://elpa.gnu.org/packages/")
+                          ("org" . "https://orgmode.org/elpa/")))
+
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+(setq use-package-verbose t)
+(setq use-package-always-ensure t)
+(require 'use-package)
+(setq load-prefer-newer t)
+
+;; (when init-file-debug
+(setq use-package-verbose t
+  use-package-expand-minimally nil
+  use-package-compute-statistics t
+  debug-on-error nil)
+
+;;
+;; -> dired-compare
+;;
+
+(use-package dired-compare
+  :load-path "~/source/repos/dired-compare"
+  ;; :ensure nil
+  ;; :vc (:fetcher github :repo "captainflasmr/dired-compare")
+  :config (dired-compare 1))
+#+end_src
