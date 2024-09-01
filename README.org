@@ -91,6 +91,8 @@ Mark two directories in Dired, then choose ztree-diff
 
 * Customization
 
+Note that the bedrock to this package is the defintion of =dired-compare-diff-tools= where it can be extensively modified through the custom interface, for example new commands can be easily added and arguments can be added and modified for any tool of your choosing.
+
 #+begin_src emacs-lisp :results table :colnames '("Custom variable" "Description") :exports results
   (let ((rows))
     (mapatoms
@@ -164,6 +166,8 @@ dired-compare provides a user-friendly interface for using multiple directory co
 
 * ISSUES (other)                                                     :issues:
 
+** TODO Improve diff formatting output
+
 ** TODO directories can't be compared when in the same top level
 
 ** TODO do we need to create a buffer for external graphical tools?
@@ -173,6 +177,31 @@ dired-compare provides a user-friendly interface for using multiple directory co
 ** TODO dired-diff directories are the wrong way round
 
 * ROADMAP                                                           :roadmap:
+
+** TODO Add any elisp custom directory diff functions available
+
+** TODO Add any elisp wrapper calls to command line tools, for example:
+
+https://xenodium.com/diffing-directories-content-size/
+
+#+begin_src elisp
+(require 'f)
+
+(defun ar/ediff-dir-content-size ()
+    "Diff all subdirectories (sizes only) in two directories."
+    (interactive)
+    (let* ((dir1-path (read-directory-name "Dir 1: "))
+           (dir2-path (read-directory-name "Dir 2: "))
+           (buf1 (get-buffer-create (format "*Dir 1 (%s)*" (f-base dir1-path))))
+           (buf2 (get-buffer-create (format "*Dir 2 (%s)*" (f-base dir2-path)))))
+      (with-current-buffer buf1
+        (erase-buffer))
+      (with-current-buffer buf2
+        (erase-buffer))
+      (shell-command (format "cd %s; find . -type d | sort | du -h" dir1-path) buf1)
+      (shell-command (format "cd %s; find . -type d | sort | du -h" dir2-path) buf2)
+      (ediff-buffers buf1 buf2)))
+#+end_src
 
 ** DOING Add in more directory comparison tools, if there are any!
 
