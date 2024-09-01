@@ -143,32 +143,40 @@ dired-compare provides a user-friendly interface for using multiple directory co
 
 * ISSUES
 
-#+begin: kanban :layout ("..." . 50) :scope nil :range ("TODO" . "DONE") :sort "O" :depth 3 :match "issues" :compressed t
-| TODO                                               | DOING | DONE |
-|----------------------------------------------------+-------+------|
-| [[file:README.org::*ISSUE #1][ISSUE #1]]                                           |       |      |
-| [[file:README.org::*directories can't be compared when in the same top level][directories can't be compared when in the same ...]] |       |      |
+#+begin: kanban :layout ("..." . 100) :scope nil :range ("TODO" . "DONE") :sort "O" :depth 3 :match "issues" :compressed t
+| TODO                                                        | DOING | DONE |
+|-------------------------------------------------------------+-------+------|
+| [[file:README.org::*directories can't be compared when in the same top level][directories can't be compared when in the same top level]]    |       |      |
+| [[file:README.org::*do we need to create a buffer for external graphical tools?][do we need to create a buffer for external graphical tools?]] |       |      |
+| [[file:README.org::*dired-compare-directories not working][dired-compare-directories not working]]                       |       |      |
+| [[file:README.org::*dired-diff directories are the wrong way round][dired-diff directories are the wrong way round]]              |       |      |
 #+end:
 
 * ROADMAP
 
 #+begin: kanban :layout ("..." . 100) :scope nil :range ("TODO" . "DOING") :sort "O" :depth 3 :match "roadmap" :compressed t
-| TODO | DOING                                  |
-|------+----------------------------------------|
-|      | [[file:README.org::*Add in more directory comparison tools][Add in more directory comparison tools]] |
+| TODO                           | DOING                                                     |
+|--------------------------------+-----------------------------------------------------------|
+| [[file:README.org::*Consider Windows specific apps][Consider Windows specific apps]] | [[file:README.org::*Add in more directory comparison tools, if there are any!][Add in more directory comparison tools, if there are any!]] |
 #+end:
 
 * ISSUES (github)                                                    :issues:
-
-** TODO ISSUE #1
 
 * ISSUES (other)                                                     :issues:
 
 ** TODO directories can't be compared when in the same top level
 
+** TODO do we need to create a buffer for external graphical tools?
+
+** TODO dired-compare-directories not working
+
+** TODO dired-diff directories are the wrong way round
+
 * ROADMAP                                                           :roadmap:
 
-** DOING Add in more directory comparison tools
+** DOING Add in more directory comparison tools, if there are any!
+
+** TODO Consider Windows specific apps
 
 * Testing
 
