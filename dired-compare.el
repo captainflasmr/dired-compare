@@ -29,17 +29,24 @@
 ;;
 ;;; Code:
 
-(defvar dired-compare-diff-tools
-  '(("Meld" . ("meld" . nil))
-    ("diff" . ("diff" . ("-ry")))
-    ("rsync" . ("rsync" . ("-avP" "--dry-run")))
-    ("kompare" . ("kompare". nil))
-    ("ztree-diff" . ("ztree-diff". nil))
-    ("ediff-directories" . ("ediff-directories". nil))
-    ("dired-diff" . ("dired-diff" . nil))
-    ("dired-compare-directories" . ("dired-compare-directories". nil))
-    ("fdupes" . ("fdupes". ("-r"))))
-  "An alist of available directory comparison tools and their shell commands with optional arguments.")
+(defgroup dired-compare nil
+  "Comparison tools for directories within Dired."
+  :prefix "dired-compare-"
+  :group 'dired)
+
+ (defcustom dired-compare-diff-tools
+  '(("Meld" . ("meld" nil))
+    ("diff" . ("diff" ("-ry")))
+    ("rsync" . ("rsync" ("-avP" "--dry-run")))
+    ("kompare" . ("kompare" nil))
+    ("ztree-diff" . ("ztree-diff" nil))
+    ("ediff-directories" . ("ediff-directories" nil))
+    ("dired-diff" . ("dired-diff" nil))
+    ("dired-compare-directories" . ("dired-compare-directories" nil))
+    ("fdupes" . ("fdupes" ("-r"))))
+  "An alist of available directory comparison tools and their shell commands with optional arguments."
+  :type '(alist :key-type string :value-type (group string (repeat (choice string symbol))))
+  :group 'dired-compare)
 
 (defun dired-compare (tool)
   "Compare all marked directories in all visible Dired buffers using TOOL with pre-specified arguments.
